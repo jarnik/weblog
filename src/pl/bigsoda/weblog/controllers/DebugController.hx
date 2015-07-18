@@ -109,7 +109,7 @@ class DebugController implements IController
 		for(i in 0...scope.logs.length){
 			if(scope.logs[i].id == id){
 				socketService.setDebugSocketItem(scope.logs[i].data);
-				fillWindow( filterObj(scope.logs[i].data, scope.filterStr) );
+				fillWindow( filterObj(scope.logs[i].data, scope.filterStr), scope.logs[i].stack );
 				scope.selectedId = id;
 				break;
 			}
@@ -120,17 +120,18 @@ class DebugController implements IController
 		scope.selectedId = id;*/
 	}
 	
-	public function select(msg, id)
+	public function select(msg, id, stack = null)
 	{
 		scope.msg = msg;
 		socketService.setDebugSocketItem(msg);
-		fillWindow( filterObj(msg, scope.filterStr) );
+		fillWindow( filterObj(msg, scope.filterStr));
 		scope.selectedId = id;
 	}
 
-	public function fillWindow(data:Dynamic):Void {
+	public function fillWindow(data:Dynamic, stack:Dynamic = null):Void {
 		//scope.selectedDebugItem = sce.trustAsHtml("<pre class='jsonprint'>" + socketService.formatJson(data) + "</pre>");
-		scope.selectedDebugItem = sce.trustAsHtml("<pre class='jsonprint'>" + socketService.formatJson(data) + "</pre>");
+		scope.selectedDebugItem = sce.trustAsHtml("<pre class='jsonprint'>" + data + "</pre>");
+		scope.selectedDebugItemStack = sce.trustAsHtml("<pre class='jsonprint'>" + stack + "</pre>");
 	}
 
 	public function clear():Void {

@@ -34,6 +34,7 @@ typedef LogLineModel = {
 	var time:Date;
 	var data:String;
 	var msg:String;
+	@:optional var stack:String;
 	@:optional var val:Float;
 	@:optional var valp:Float;
 }
@@ -161,7 +162,7 @@ class SocketService implements IService
 					time: Date.now(),
 					data: sdata.data,
 					msg: sdata.data.id,
-					val: sdata.data.time,
+					val: sdata.data.time
 				});
 
 				//devLogs.maxTime = Math.max(devLogs.maxTime, sdata.data.time);
@@ -187,8 +188,9 @@ class SocketService implements IService
 				devLogs.debugData.insert(0, {
 					id: index,
 					time: Date.now(),
-					data: sdata.data,
+					data: sdata.data.data,
 					msg: sdata.msg,
+					stack: sdata.data.stack
 				});
 				if (devLogs.debugData.length > max) devLogs.debugData.pop();
 			case "test":

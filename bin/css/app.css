@@ -140,7 +140,16 @@ html,body{
 }
 
 #debug_obj {
-	position: absolute;
+	/*position: absolute;*/
+	left: 0;
+	top: 25px;
+	bottom: 0;
+	right: 0;
+	border: none;
+}
+
+#debug_stack {
+	/*position: absolute;*/
 	left: 0;
 	top: 25px;
 	bottom: 0;

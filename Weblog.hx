@@ -125,7 +125,8 @@ class Weblog{
 
 
 
-	public static function log(data:Dynamic):Void {
+	public static function log(data:Dynamic,stack:String = null):Void {
+		data = {data:data,stack:stack};
 		//send(data, "log");
 		debug(data);
 	}
@@ -133,8 +134,6 @@ class Weblog{
 	public static function debug(data:Dynamic):Void {
 		send(data, "debug");
 	}
-	
-	
 	
 	public static function inspect(data:Dynamic):Void {
 		_inspectable = data;
@@ -197,7 +196,10 @@ class Weblog{
 		
 		var msg:String = "";
 		
-		if(data == null){
+		if (type=="debug")
+		{
+			msg = data.data;
+		} else if(data == null){
 			msg = "null";
 		}else if(Std.is(data, String) || Std.is(data, Int) || Std.is(data, Float) || Std.is(data, Bool)){
 			msg = Std.string(data);
